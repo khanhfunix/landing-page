@@ -7,14 +7,36 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lobster"
+      rel="stylesheet"
+    />
 
     <title>Document</title>
   </head>
   <style>
+    :root {
+      --primary-color: #10024a;
+      --secondary-color: #ffcf01;
+      --primary-text-color: #11014a;
+      --secondary-text-color: #5d5d5d;
+      --primary-bg-color: #fff;
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      font-family: "Lato", sans-serif;
+      color: var(--primary-text-color);
+      /* background-color: var(--primary-bg-color); */
     }
 
     *::-webkit-scrollbar-track {
@@ -34,33 +56,64 @@
       border: 2px solid #555555;
       border: 2px solid transparent;
     }
-    * a {
+    a {
       text-decoration: none;
-      color: black;
-      all: unset;
+      color: var(--primary-text-color);
+    }
+
+    img {
+      transition: 0.5s;
+    }
+    img:hover {
+      transform: scale(1.02);
     }
 
     body {
       font-family: sans-serif;
     }
 
-    /* .flickity-prev-next-button.previous {
-          left: 550px;
-          top: 545px;
-        }
-        .flickity-prev-next-button.next {
-          right: 550px;
-          top: 545px;
-        }
+    .flickity-viewport {
+      transition: height 0.2s;
+    }
 
-        .flickity-page-dots {
-          bottom: -35px;
-        } */
+    .flickity-page-dots {
+      bottom: -40px;
+    }
+
+    .flickity-page-dots .dot {
+      width: 12px;
+      height: 12px;
+      opacity: 1;
+      background: var(--primary-color);
+    }
+    /* fill-in selected dot */
+    .flickity-page-dots .dot.is-selected {
+      background: var(--secondary-color);
+    }
+
+    .gallery-cell.is-selected {
+      opacity: 100%;
+    }
+
+    .flickity-prev-next-button {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      color: var(--secondary-color);
+    }
+
+    .flickity-prev-next-button:hover {
+      background-color: var(--secondary-color);
+    }
+    /* icon color */
+    .flickity-button-icon {
+      fill: white;
+    }
 
     .slideshow {
       background-color: #a09c9c;
       height: fit-content;
-      padding: 40px 0;
+      padding: 60px 0;
       margin-bottom: 20px;
     }
 
@@ -69,62 +122,88 @@
     }
 
     .gallery-cell {
-      width: 70%;
+      counter-increment: gallery-cell;
+      width: 85%;
       height: fit-content;
       margin-right: 30px;
-
-      counter-increment: gallery-cell;
+      /* border-bottom-right-radius: 50px;
+      border-top-right-radius: 50px; */
       display: flex;
-      gap: 50px;
-      align-items: center;
-      background-color: #f2f2f2;
-      min-height: 100%;
+      gap: 30px;
+      /* align-items: center; */
+
+      background-color: #f5f5f5;
+      box-shadow: 0px 0px 100px 0px rgba(0, 0, 0, 0.4);
+
+      opacity: 10%;
     }
 
-    .big-detail {
+    .special-guide {
       width: 60%;
       height: 100%;
     }
-    .big-img {
+    .special-guide-img {
       width: 100%;
-      min-width: 80%;
-      /* height: 80%; */
+      /* min-width: 80%; */
+      height: 100%;
     }
-    .text {
+    .special-guide-title {
       padding: 20px 30px;
-      font-size: 32px;
+      font-size: 28px;
     }
-    .restaurant-info {
-      max-height: 300px;
+    .guide-list {
+      max-height: 500px;
       display: flex;
       flex-direction: column;
+
       padding: 20px 0;
       overflow: hidden;
+      gap: 40px;
     }
-    .restaurant-info:hover {
-      overflow: auto;
-    }
-    .restaurant-detail {
-      display: flex;
-      justify-content: start;
-      align-items: center;
-      gap: 20px;
 
-      margin-bottom: 20px;
+    .guide-details {
+      display: flex;
+      gap: 10px;
+      padding: 0 5px 0 0;
+
+      box-shadow: 2px 0px 6px 2px rgba(0, 0, 0, 0.2);
+      background-color: white;
+      transition: 0.5s;
     }
-    .restaurant-detail img {
-      width: 30%;
-      height: 30%;
+    .guide-details img:hover {
+      transform: scale(1);
+    }
+    .guide-details:hover {
+      transform: scale(1.02);
+    }
+    .guide-img {
+      width: 90px;
+      height: 90px;
+    }
+    .detail {
+      /* height: 90px; */
+      line-height: 1.7;
+    }
+    .detail h4 {
+      font-size: 18px;
+      font-weight: 300px;
+    }
+
+    .detail p {
+      font-size: 16px;
+      margin: 2px 0px 3px 0px;
     }
 
     .detail-tags {
       display: flex;
-      gap: 3px;
+      gap: 5px;
     }
 
     .detail-tag {
-      background-color: #bbb;
-      padding: 10px 20px;
+      background-color: #e0dcdc;
+      padding: 2px 3px;
+      font-size: 12px;
+      color: var(--secondary-text-color);
     }
     .detail-text {
       margin: 20px 200px;
@@ -136,6 +215,7 @@
       /* margin: 20px auto; */
       padding: 0 50px;
     }
+
     .filter-tags {
       /* padding: 10px 0; */
       text-align: center;
@@ -145,19 +225,32 @@
       overflow-x: hidden;
       margin-bottom: 20px;
     }
+
     .filter-tags:hover {
       overflow-x: auto;
       margin-bottom: 5px;
     }
     .filter-tag {
-      background-color: aqua;
+      color: var(--secondary-color);
+      background-color: var(--primary-color);
+      border: none;
       min-width: 100px;
       height: 50px;
-      border-radius: 10px;
+      border-radius: 50px;
       font-weight: 600;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .filter-tag:hover {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+      cursor: pointer;
+    }
+    .filter-tag-active {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
     }
 
     .cards {
@@ -178,8 +271,9 @@
     }
 
     /* REPONSIVE */
+
     @media screen and (max-width: 992px) {
-      .big-detail {
+      .special-guide {
         width: 100%;
         height: auto;
         margin-bottom: 10px;
@@ -188,14 +282,24 @@
         display: block;
       }
 
-      .restaurant-info {
+      .guide-list {
         max-height: fit-content;
         padding: 0 30px;
       }
 
-      .restaurant-detail img {
-        width: 20%;
-        height: 20%;
+      .guide-details {
+        gap: 20px;
+      }
+
+      .detail {
+        line-height: 1.5;
+      }
+
+      .detail h4 {
+        font-size: 18px;
+      }
+      .detail p {
+        margin-bottom: 5px;
       }
 
       .filter-tags {
@@ -228,23 +332,63 @@
       }
     }
     @media screen and (max-width: 568px) {
-      .big-img {
-        height: 200px;
+      /* .flickity-prev-next-button.previous {
+        top: 0;
+      }
+      .flickity-prev-next-button.next {
+        top: 0;
+      } */
+      .flickity-prev-next-button {
+        width: 35px;
+        height: 35px;
+      }
+
+      .slideshow {
+        padding-top: 30px;
+      }
+
+      .special-guide-img {
+        height: 250px;
       }
 
       .gallery-cell {
-        width: 100%;
+        width: 75%;
       }
 
-      .restaurant-detail img {
-        width: 50px;
-        height: 50px;
+      .guide-img {
+        width: 60px;
+        height: 60px;
       }
 
-      .text {
-        font-size: 24px;
-        padding: 10px 20px;
+      .guide-details {
+        gap: 5px;
       }
+
+      .special-guide-title {
+        font-size: 16px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .guide-list {
+        gap: 10px;
+      }
+      .detail-tag {
+        font-size: 10px;
+      }
+
+      .detail {
+        line-height: 1.3;
+      }
+
+      .detail h4 {
+        font-size: 12px;
+        margin: 0;
+      }
+      .detail p {
+        font-size: 10px;
+        margin: 5px 0;
+      }
+
       .detail-text {
         margin: 20px 50px;
         font-size: 12px;
@@ -265,318 +409,338 @@
     <section class="slideshow">
       <div
         class="gallery js-flickity"
-        data-flickity-options='{  "wrapAround": true }'
+        data-flickity-options='{  "wrapAround": false ,"adaptiveHeight": true 
+         }'
       >
         <div class="gallery-cell">
-          <div class="big-detail">
+          <a
+            href="https://www.chope.co/singapore-restaurants"
+            target="_blank"
+            class="special-guide"
+          >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
-              class="big-img"
+              src="https://static.chope.co/uploads/2023/09/s-700x350x70xw_1694493215_97033.jpg?date=a6fd0c0b"
+              class="special-guide-img"
             />
-            <h1 class="text">Caption Text</h1>
-          </div>
-          <div class="restaurant-info">
-            <div class="restaurant-detail">
+            <h1 class="special-guide-title">
+              Special Chritsmas guide name here
+            </h1>
+          </a>
+          <div class="guide-list">
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594880727_37098.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
+                <h4>House of Seafood (Riverwalk)</h4>
 
-                <p>***** VOTE</p>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a
+              href="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+              target="_blank"
+              class="guide-details"
+            >
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594964537_53714.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
-              />
-              <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
-                <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                </div>
-              </div>
-            </div>
-            <div class="restaurant-detail">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
-              />
-              <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
-                <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
 
         <div class="gallery-cell">
-          <div class="big-detail">
+          <a
+            href="https://www.chope.co/singapore-restaurants"
+            target="_blank"
+            class="special-guide"
+          >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
-              class="big-img"
+              src="https://static.chope.co/uploads/2023/10/s-700x350x70xw_1698204520_39812.jpg?date=a6fd0c0b"
+              class="special-guide-img"
             />
-            <h1 class="text">Caption Text</h1>
-          </div>
-          <div class="restaurant-info">
-            <div class="restaurant-detail">
+            <h1 class="special-guide-title">
+              Special Chritsmas guide name here
+            </h1>
+          </a>
+          <div class="guide-list">
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         <div class="gallery-cell">
-          <div class="big-detail">
+          <a
+            href="https://www.chope.co/singapore-restaurants"
+            target="_blank"
+            class="special-guide"
+          >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
-              class="big-img"
+              src="https://static.chope.co/uploads/2023/10/s-700x350x80xw_1696918265_69244.jpg?date=a6fd0c0b"
+              class="special-guide-img"
             />
-            <h1 class="text">Caption Text</h1>
-          </div>
-          <div class="restaurant-info">
-            <div class="restaurant-detail">
+            <h1 class="special-guide-title">
+              Special Chritsmas guide name here
+            </h1>
+          </a>
+          <div class="guide-list">
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         <div class="gallery-cell">
-          <div class="big-detail">
+          <a
+            href="https://www.chope.co/singapore-restaurants"
+            target="_blank"
+            class="special-guide"
+          >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
-              class="big-img"
+              src="https://static.chope.co/uploads/2023/09/s-700x350x70xw_1693888432_48036.jpg?date=a6fd0c0b"
+              class="special-guide-img"
             />
-            <h1 class="text">Caption Text</h1>
-          </div>
-          <div class="restaurant-info">
-            <div class="restaurant-detail">
+            <h1 class="special-guide-title">
+              Special Chritsmas guide name here
+            </h1>
+          </a>
+          <div class="guide-list">
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         <div class="gallery-cell">
-          <div class="big-detail">
+          <a
+            href="https://www.chope.co/singapore-restaurants"
+            target="_blank"
+            class="special-guide"
+          >
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
-              class="big-img"
+              src="https://static.chope.co/uploads/2023/10/s-700x350x70xw_1696248379_14682.jpg?date=a6fd0c0b"
+              class="special-guide-img"
             />
-            <h1 class="text">Caption Text</h1>
-          </div>
-          <div class="restaurant-info">
-            <div class="restaurant-detail">
+            <h1 class="special-guide-title">
+              Special Chritsmas guide name here
+            </h1>
+          </a>
+          <div class="guide-list">
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
-            <div class="restaurant-detail">
+            </a>
+            <a href="" target="_blank" class="guide-details">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
-                class="small-img"
+                src="https://static.chope.co/uploads/2020/07/s-412x308x80xw_1594881328_81132.jpg"
+                class="guide-img"
               />
               <div class="detail">
-                <h3>Name</h3>
-                <p>***** VOTE</p>
+                <h4>House of Seafood (Riverwalk)</h4>
+                <p>⭐⭐⭐⭐⭐ 5 stars(2938 ratings)</p>
                 <div class="detail-tags">
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
-                  <span class="detail-tag"></span>
+                  <span class="detail-tag"><b>$</b><b>$</b><b>$</b>$$</span>
+                  <span class="detail-tag">0.2km</span>
+                  <span class="detail-tag">Changi</span>
+                  <span class="detail-tag">Chinese</span>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
@@ -585,24 +749,28 @@
       <p class="detail-text">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint ad
         perferendis illum odio tempora ipsam molestiae, doloribus repellat
-        tempore iste at dignissimos ullam voluptates voluptate, quaerat
+        tempore iste at dignissimos ullam voluptates voluptate, quaerat Lorem
+        ipsum dolor sit amet consectetur adipisicing elit. Voluptatum natus
+        porro odio adipisci. Accusamus, error! Doloremque, dolores optio
+        provident libero quo, accusamus corporis impedit nostrum obcaecati harum
+        consequuntur, mollitia eius.
       </p>
       <div class="card-wrapper">
         <div class="filter-tags">
-          <div class="filter-tag">Tag 1 here</div>
-          <div class="filter-tag">Tag 2 here</div>
-          <div class="filter-tag">Tag 3 here</div>
-          <div class="filter-tag">Tag 4 here</div>
-          <div class="filter-tag">Tag 5 here</div>
-          <div class="filter-tag">Tag 6 here</div>
-          <div class="filter-tag">Tag 7 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
-          <div class="filter-tag">Tag 8 here</div>
+          <button class="filter-tag filter-tag-active">Tag 1 here</button>
+          <button class="filter-tag">Tag 2 here</button>
+          <button class="filter-tag">Tag 3 here</button>
+          <button class="filter-tag">Tag 4 here</button>
+          <button class="filter-tag">Tag 5 here</button>
+          <button class="filter-tag">Tag 6 here</button>
+          <button class="filter-tag">Tag 7 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
+          <button class="filter-tag">Tag 8 here</button>
         </div>
         <div class="cards">
           <a href="#" class="card">
