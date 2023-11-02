@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css"
+      rel="stylesheet"
+    />
+
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    *::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #f5f5f5;
+    }
+
+    *::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+      background-color: #f5f5f5;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background-color: #000000;
+      border: 2px solid #555555;
+    }
+    * a {
+      text-decoration: none;
+      color: black;
+    }
+
+    body {
+      font-family: sans-serif;
+    }
+
+    .slideshow {
+      background-color: #a09c9c;
+      height: 90vh;
+      padding: 40px 0;
+      margin-bottom: 20px;
+    }
+
+    .gallery {
+      height: 100%;
+    }
+
+    .gallery-cell {
+      width: 70%;
+      height: 100%;
+      margin-right: 30px;
+
+      counter-increment: gallery-cell;
+
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      background-color: #f2f2f2;
+      min-height: 100%;
+    }
+
+    /* cell number */
+    /* .gallery-cell:before {
+      display: block;
+      text-align: center;
+      content: counter(gallery-cell);
+      line-height: 200px;
+      font-size: 80px;
+      color: white;
+    } */
+
+    .big-detail {
+      width: 60%;
+      height: 100%;
+    }
+    .big-img {
+      width: 100%;
+      min-width: 80%;
+      /* height: 80%; */
+    }
+    .text {
+      padding: 20px 30px;
+      font-size: 32px;
+      border-right: 1px solid #a09c9c;
+    }
+    .restaurant-info {
+      max-height: 400px;
+      overflow: hidden;
+    }
+    .restaurant-info:hover {
+      overflow: auto;
+    }
+    .restaurant-detail {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+      gap: 20px;
+
+      margin-bottom: 20px;
+    }
+    .restaurant-detail img {
+      width: 30%;
+      height: 30%;
+    }
+
+    .detail-tags {
+      display: flex;
+      gap: 3px;
+    }
+
+    .detail-tag {
+      background-color: #bbb;
+      padding: 10px 20px;
+    }
+    .detail-text {
+      margin: 20px 200px;
+      font-size: 18px;
+    }
+
+    .card-wrapper {
+      width: 100vw;
+      /* margin: 20px auto; */
+      padding: 0 50px;
+    }
+    .filter-tags {
+      /* padding: 10px 0; */
+      text-align: center;
+
+      display: flex;
+      gap: 30px;
+      overflow-x: hidden;
+    }
+    .filter-tags:hover {
+      overflow-x: auto;
+    }
+    .filter-tag {
+      background-color: aqua;
+      min-width: 100px;
+      height: 50px;
+      border-radius: 10px;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cards {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      row-gap: 20px;
+      column-gap: 20px;
+      /* margin: 0 20px; */
+    }
+    .card {
+      width: 100%;
+      text-align: center;
+      margin: 20px auto;
+    }
+    .card img {
+      width: 100%;
+    }
+
+    /* REPONSIVE */
+    @media screen and (max-width: 992px) {
+      .slideshow {
+        height: 120vh;
+      }
+      .big-detail {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+      .gallery-cell {
+        display: block;
+      }
+
+      .restaurant-detail {
+        justify-content: start;
+        padding-left: 30px;
+      }
+
+      .restaurant-detail img {
+        width: 20%;
+        height: 20%;
+      }
+
+      .cards {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .slideshow-container {
+        margin: 20px 50px;
+      }
+      .gallery-cell {
+        flex-direction: column;
+      }
+
+      .restaurant-info {
+        max-height: 300px;
+      }
+
+      .detail-text {
+        margin: 20px 100px;
+        font-size: 18px;
+      }
+
+      .cards {
+        display: flex;
+        flex-direction: column;
+      }
+      .card {
+        margin-top: 30px;
+      }
+      .card h3 {
+        font-size: 48px;
+      }
+    }
+    @media screen and (max-width: 568px) {
+      .slideshow {
+        height: 100vh;
+      }
+
+      .filter-tags {
+        overflow-x: auto;
+      }
+
+      .gallery-cell {
+        width: 100%;
+      }
+
+      .text {
+        font-size: 24px;
+        padding: 10px 20px;
+      }
+      .detail-text {
+        margin: 10px 50px;
+        font-size: 18px;
+      }
+    }
+  </style>
+  <body>
+    <section class="slideshow">
+      <div
+        class="gallery js-flickity"
+        data-flickity-options='{ "freeScroll": true, "wrapAround": true }'
+      >
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <a href="facebook.com">ABC</a>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-cell">
+          <div class="big-detail">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+              class="big-img"
+            />
+            <h1 class="text">Caption Text</h1>
+          </div>
+          <div class="restaurant-info">
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="restaurant-detail">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6zLWWk8A2fGtJALTTzoBOyZPWUYJhhAKs_6iiHRPk&s"
+                class="small-img"
+              />
+              <div class="detail">
+                <h3>Name</h3>
+                <p>***** VOTE</p>
+                <div class="detail-tags">
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                  <span class="detail-tag"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-card">
+      <p class="detail-text">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint ad
+        perferendis illum odio tempora ipsam molestiae, doloribus repellat
+        tempore iste at dignissimos ullam voluptates voluptate, quaerat
+        voluptatibus praesentium excepturi perspiciatis! Lorem ipsum dolor sit
+        amet, consectetur adipisicing elit. Inventore sunt suscipit accusantium
+        iure impedit esse repellendus beatae et odio fugiat, aliquam libero
+        pariatur vitae quisquam at natus molestias? Laborum, ad.
+      </p>
+      <div class="card-wrapper">
+        <div class="filter-tags">
+          <div class="filter-tag">Tag 1 here</div>
+          <div class="filter-tag">Tag 2 here</div>
+          <div class="filter-tag">Tag 3 here</div>
+          <div class="filter-tag">Tag 4 here</div>
+          <div class="filter-tag">Tag 5 here</div>
+          <div class="filter-tag">Tag 6 here</div>
+          <div class="filter-tag">Tag 7 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+          <div class="filter-tag">Tag 8 here</div>
+        </div>
+        <div class="cards">
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+          <a href="#" class="card">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Rose-pink.jpg"
+            />
+            <h3>Guide name here</h3>
+          </a>
+        </div>
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
+  </body>
+</html>
